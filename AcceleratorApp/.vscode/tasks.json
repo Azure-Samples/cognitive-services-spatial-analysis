@@ -1,0 +1,66 @@
+{
+	"version": "2.0.0",
+	"echoCommand": true,
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "npm: lint",
+			"detail": "eslint ."
+		},
+		{
+			"type": "npm",
+			"script": "install",
+			"problemMatcher": [],
+			"label": "npm: install",
+			"detail": "install dependencies from package",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "docker-build",
+			"label": "docker-build",
+			"platform": "node",
+			"dockerBuild": {
+				"dockerfile": "${workspaceFolder}/Dockerfile",
+				"context": "${workspaceFolder}",
+				"pull": true
+			},
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: release",
+			"dependsOn": [
+				"docker-build"
+			],
+			"platform": "node"
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build"
+			],
+			"dockerRun": {
+				"env": {
+					"DEBUG": "*",
+					"NODE_ENV": "development"
+				}
+			},
+			"node": {
+				"enableDebugging": true
+			}
+		}
+	]
+}
