@@ -1,4 +1,4 @@
-// Microsoft Spatial Analysis Insigts Sample App. 
+// Cognitive Services for spatial analysis: Accelerator app for Person Counting. 
 
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-restricted-globals */
@@ -8,7 +8,7 @@ $(document).ready(() => {
   const protocol = document.location.protocol.startsWith('https') ? 'wss://' : 'ws://';
   const webSocket = new WebSocket(protocol + location.host);
 
-  // A class for holding the last N points of Insights for a device
+  // A class for holding the last N points of Insights for a device. Each data point represents the event timestamp, person count, and latency
   class DeviceData {
     constructor(deviceId) {
       this.deviceId = deviceId;
@@ -37,7 +37,7 @@ $(document).ready(() => {
     }
   }
 
-  // All the devices in the list (those that have been sending telemetry)
+  // Each operation configured in the spatial analysis container is mapped to a TrackedDevice
   class TrackedDevices {
     constructor() {
       this.devices = [];
@@ -169,7 +169,7 @@ $(document).ready(() => {
         });
 
   // Manage a list of devices in the UI, and update which device data the chart is showing
-  // based on selection
+  // based on selection. Each device is mapped to an operation in the spatial analysis container.
   let needsAutoSelect = true;
   const deviceCount = document.getElementById('deviceCount');
   const listOfDevices = document.getElementById('listOfDevices');
@@ -224,7 +224,7 @@ $(document).ready(() => {
           const lastEvent = document.getElementById('lastEvent');
           lastEvent.innerText = JSON.stringify(messageData.IotData.events[0]);
         }
-        //personCount is the person entry exit count
+
         existingDeviceData.addData(messageData.MessageDate, existingDeviceData.personCount, latency);
       } else {
         const newDeviceData = new DeviceData(newDeviceId);

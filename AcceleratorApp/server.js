@@ -1,4 +1,4 @@
-// Microsoft Spatial Analysis Insigts Sample App. 
+// Cognitive Services for spatial analysis: Accelerator app for Person Counting. 
 
 /* eslint-disable no-undef */
 const express = require('express');
@@ -7,11 +7,11 @@ const WebSocket = require('ws');
 const path = require('path');
 const ServerEventReader = require('./server-event-reader.js');
 
-// These are set in the launch file or in the settings from the Webapp enviromnent variables
+// These are set in the configuration settings that you enter in .vscode/launch.js
 const iotHubConnectionString = process.env.IotHubConnectionString;
 const eventHubConsumerGroup = process.env.EventHubConsumerGroup;
 
-// Redirect requests to the public subdirectory to the client
+// Redirect requests to the public subdirectory towards the client
 const app = express();
 app.use(express.static(path.join(__dirname, 'root')));
 app.use((req, res /* , next */) => {

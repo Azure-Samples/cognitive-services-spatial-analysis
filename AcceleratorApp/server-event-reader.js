@@ -1,4 +1,4 @@
-// Microsoft Spatial Analysis Insigts Sample App. 
+// Cognitive Services for spatial analysis: Accelerator app for Person Counting. 
 
 /* eslint-disable no-undef */
 const { EventHubClient, EventPosition } = require('@azure/event-hubs');
