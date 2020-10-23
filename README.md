@@ -31,18 +31,16 @@ For a tutorial on how to use this application see this [article](https://docs.mi
 
 ### Person Count Accelerator App
 
-Use the web application in this project to integrate the output of the spatial analysis container and understand the count of people occupying a physical space. The application parses the AI Insight JSON output by the spatial analysis container and determine the “person count” and “latency”, then it updates a chart UI. To determine the latency, the app inspects the AI Insight timestamp which indicates when the AI Insight event has been generated on the edge device and calculates the latency. 
+Use the web application in this project to integrate the output of the spatial analysis container and understand the count of people occupying a physical space. The application parses the AI Insight JSON output by the spatial analysis container and determine the “person count” and “latency”, then it updates a chart UI. To determine the latency, the app inspects the AI Insight timestamp which indicates when the AI Insight event has been generated on the edge device and calculates the latency.
 
 To run the demo, follow these steps:
 
-(Add steps to start up the demo)
-
 1. Clone the repository
-2. Open the AcceleratorApp forlder from the cloned repositiory folder in VScode
+2. Open the Person Count AcceleratorApp forlder from the cloned repository folder in VScode
 3. Press ctrl+shift+b and select the "npm install" task to install dependencies
 4. Retrieve the EventHubConsumerGroup and IotHubConnectionString from your Azure IoT Hub resource on [Azure portal](https://portal.azure.com).
 5. Enter the values in the "EventHubConsumerGroup" and "IotHubConnectionString" fields at .vscode/launch.json
-6. Press f5 to launch the app
+6. Press [F5] to launch the app
 7. Navigate to localhost:3000 in your browser to see the app in action
 
 ## Resources
