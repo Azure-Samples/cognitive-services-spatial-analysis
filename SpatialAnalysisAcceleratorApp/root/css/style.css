@@ -6,10 +6,7 @@ body {
   text-align: center;
 }
 
-.personCount{
-  position: absolute;
-  top: 20%;
-  left: 0px;
+.personCount{  
   font-size: 10vw;
   width: 100%;
   height: 100%;
@@ -23,8 +20,34 @@ body {
   justify-content: space-between;
 }
 
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 400px;
+  height: 100px;
+  margin-bottom: 50px;
+}
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px;
+}
+
 .topSpacer{
-  margin-top: 70px;
+  margin-top: 60px;
+}
+
+.source {
+  margin-left: 70px;
+  margin-bottom: 10px;
+  width: 30%;
 }
 
 .hideit{
@@ -34,9 +57,15 @@ body {
 .header{
   background-color: black;
   position: relative;
-  padding: 50px;
+  padding: 20px;
   color: white;
   margin: -50px;
+}
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
 }
 
 .event{
@@ -47,9 +76,13 @@ body {
   min-height: 50px;
 }
 
+.iotChartContainer{
+  width: 70%;
+}
 .iotChartbox {
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  margin-bottom: 20px;
 }
 
 .horizontalBox{
@@ -57,7 +90,7 @@ body {
 }
 
 .iotChart {
-  width: 70% !important;
+  width: 90% !important;
   height: 20% !important;
   padding: 10px;
 }
