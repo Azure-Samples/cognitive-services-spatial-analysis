@@ -286,7 +286,7 @@ class Controller {
             this.cardViews[index - 1].updateCard(aggregatedCount["value"], aggregatedCount["title"]);
           }
           else {
-            //this.cardViews[index - 1].hideCard()
+            this.cardViews[index - 1].hideCard()
           }
         });
         this.latencyChart.chart.update();
