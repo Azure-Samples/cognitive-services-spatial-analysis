@@ -45,6 +45,11 @@ To run the demo, follow these steps:
 7. Press [F5] to launch the app
 8. Navigate to localhost:3000 in your browser to see the app in action
 
+## Docker Image
+1. Navigate to SpatialAnalysisAcceleratorApp folder (e.g. cd SpatialAnalysisAcceleratorApp) 
+2. docker build -t <your ACR name>/spatialanalysisacceleratorapp .
+3. docker push <your ACR name>/spatialanalysisacceleratorapp
+
 ## Resources
 
 - Computer Vision for spatial Analysis [documentation](https://docs.microsoft.com/azure/cognitive-services/computer-vision/spatial-analysis-container?tabs=azure-stack-edge)
