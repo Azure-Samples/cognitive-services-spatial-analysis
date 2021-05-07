@@ -47,8 +47,8 @@ To run the demo, follow these steps:
 
 ## Docker Image
 1. Navigate to SpatialAnalysisAcceleratorApp folder (e.g. cd SpatialAnalysisAcceleratorApp) 
-2. docker build -t <your ACR name>/spatialanalysisacceleratorapp .
-3. docker push <your ACR name>/spatialanalysisacceleratorapp
+2. docker build -t <your_ACR_name>.azurecr.io/spatialanalysisacceleratorapp .
+3. docker push <your_ACR_name>.azurecr.io/spatialanalysisacceleratorapp
 
 ## Resources
 
