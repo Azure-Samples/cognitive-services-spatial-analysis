@@ -1,0 +1,94 @@
+<!-- Cognitive Services for spatial analysis: Accelerator app for Person Counting.  -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous" type=" text/javascript"
+        charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script src="views.js" type="text/javascript" charset="utf-8"></script>
+    <script src="spatialAnalysis.js" type="text/javascript" charset="utf-8"></script>
+
+    <link href="css/style.css" rel="stylesheet" />
+    <title>Spatial Analysis Demo : Insights App</title>
+
+    <script>
+        $(document).ready(() => {
+            // if deployed to a site supporting SSL, use wss://
+            const protocol = document.location.protocol.startsWith('https') ? 'wss://' : 'ws://';
+            var controller = new Controller();
+        });
+    </script>
+</head>
+
+<body>
+    <h1 class="flexHeader header"><span>Spatial Analysis Demo</span></h1>
+    <h2 class="flexHeader topSpacer"></h2>
+    <div id="header">
+    </div>
+    <table style="width:100%; border: 10px;">
+        <tr align="left">
+            <td colspan="2">
+                <div class="container" style="display: flex;">
+                    <div class="source">
+                        <span id="deviceCount">Select Device: </span>
+                        <select id="listOfDevices" class="select_box"></select>
+                    </div>
+                    <div style="flex-grow: 1">
+                        <span>Select Camera/Source: </span>
+                        <select id="listOfSources"></select>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="iotChartContainer">
+                <div class="iotChartbox">
+                    <canvas class="iotChart" id="chart"></canvas>
+                </div>
+            </td>
+            <td style="vertical-align:top">
+                <div class="card" id="card1">
+                    <div class="container">
+                        <h4><b> <span id="cardTitle1" class="cardTitle">0</span></b></h4>
+                        <p><span id="cardDescription1">Aggregated Count</p>
+                    </div>
+                </div>
+                <div class="card" id="card2">
+                    <div class="container">
+                        <h4><b> <span id="cardTitle2" class="cardTitle">0</span></b></h4>
+                        <p><span id="cardDescription2">Aggregated Count</p>
+                    </div>
+                </div>
+                <div class="card" id="card3">
+                    <div class="container">
+                        <h4><b> <span id="cardTitle3" class="cardTitle">0</span></b></h4>
+                        <p><span id="cardDescription3">Aggregated Count</p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="iotChartContainer">
+                <div class="iotChartbox">
+                    <canvas class="iotChart" id="latencyChart"></canvas>
+                </div>
+                <h3 class="flexHeader event">
+                    <span>
+                        <span>Last Event: </span>
+                        <span class="" id="lastEvent"></span>
+                    </span>
+                </h3>
+            </td>
+    </table>
+</body>
+
+</html>

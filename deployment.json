@@ -1,0 +1,182 @@
+{
+    "modulesContent": {
+        "$edgeAgent": {
+            "properties.desired": {
+                "modules": {
+                    "spatialanalysis": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azure-cognitive-services/vision/spatial-analysis:1.3",
+                            "createOptions": "{\"k8s-experimental\": {\"volumes\": [{\"volume\": {\"name\": \"dshm\",\"emptyDir\": {\"medium\": \"Memory\",\"sizeLimit\": 536870912}},\"volumeMounts\": [{\"name\": \"dshm\",\"mountPath\": \"/dev/shm\",\"mountPropagation\": \"None\",\"readOnly\": \"false\",\"subPath\": \"\"}]}]},\"HostConfig\": {\"IpcMode\": \"host\",\"PortBindings\":{\"2222/tcp\":[{\"HostPort\":\"2222\"}]},\"Binds\": [\"/tmp/.X11-unix:/tmp/.X11-unix\"],\"Runtime\": \"nvidia\",\"ShmSize\":536870912,\"LogConfig\": {\"Type\": \"json-file\",\"Config\": {\"max-size\": \"10m\",\"max-file\": \"200\"}}}}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "DISPLAY": {
+                                "value": ":1"
+                            },
+                            "QT_X11_NO_MITSHM": {
+                                "value": "1"
+                            },
+                            "ARCHON_LOG_LEVEL": {
+                                "value": "info"
+                            },
+                            "ARCHON_SHARED_BUFFER_LIMIT": {
+                                "value": "377487360"
+                            },
+                            "ARCHON_GRAPH_READY_TIMEOUT": {
+                                "value": "600"
+                            },
+                            "OMP_WAIT_POLICY": {
+                                "value": "PASSIVE"
+                            },
+                            "EULA": {
+                                "value": "accept"
+                            },
+                            "BILLING":{
+                                "value": "<Use endpoint from Computer Vision Azure resource>"
+                            },
+                            "APIKEY":{
+                                "value": "<Use the key from Computer Vision Azure resource>"
+                            },
+                            "ORT_TENSORRT_ENGINE_CACHE_ENABLE": {
+                                "value": "1"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    }
+                },
+                "runtime": {
+                    "settings": {
+                        "minDockerVersion": "v1.25"
+                    },
+                    "type": "docker"
+                },
+                "schemaVersion": "1.0",
+                "systemModules": {
+                    "edgeAgent": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-agent:1.1",
+                            "createOptions": ""
+                        },
+                        "type": "docker"
+                    },
+                    "edgeHub": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-hub:1.1",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"443/tcp\":[{\"HostPort\":\"443\"}],\"5671/tcp\":[{\"HostPort\":\"5671\"}],\"8883/tcp\":[{\"HostPort\":\"8883\"}]}}}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "SslProtocols": {
+                                "value": "tls1.2"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    }
+                }
+            }
+        },
+        "$edgeHub": {
+            "properties.desired": {
+                "routes": {
+                    "route": "FROM /messages/* INTO $upstream"
+                },
+                "schemaVersion": "1.0",
+                "storeAndForwardConfiguration": {
+                    "timeToLiveSecs": 7200
+                }
+            }
+        },
+        "spatialanalysis": {
+            "properties.desired": {
+                "globalSettings": {
+                    "platformTelemetryEnabled": false,
+                    "customerTelemetryEnabled": true
+                },
+                "graphs": {
+                    "cognitiveservices_vision_spatialanalysis_1": {
+                        "operationId": "cognitiveservices.vision.spatialanalysis",
+                        "parameters": {
+                            "INPUT_VIDEO_WIDTH": 1920
+                        },
+                        "sharedNodes": {
+                            "sharedDetector": {
+                                "node": "SpatialAnalysisGraph/detector",
+                                "parameters": {
+                                    "DETECTOR_NODE_CONFIG": "{\"gpu_index\":0,\"batch_size\":4,\"do_calibration\":true,\"enable_recalibration\":true}"
+                                }
+                            },
+                            "sharedFacemask": {
+                                "node": "SpatialAnalysisGraph/facemask",
+                                "parameters": {
+                                    "VIDEO_DECODE_GPU_INDEX": 0,
+                                    "ENABLE_FACE_MASK_CLASSIFIER": true
+                                }
+                            }
+                        },
+                        "instances": {
+                            "checkoutLine": {
+                                "sharedNodeMap": {
+                                    "SpatialAnalysisGraph/detector": "sharedDetector",
+                                    "SpatialAnalysisGraph/facemask": "sharedFacemask"
+                                },
+                                "parameters": {
+                                    "VIDEO_URL": "https://teamfileshare.blob.core.windows.net/spatialanalysis-demo-data/zone-checkout.mp4?sp=r&st=2021-04-25T20:23:57Z&se=2023-04-26T04:23:57Z&spr=https&sv=2020-02-10&sr=b&sig=gUrgXbsZVM6QRP%2B9DdbdFXKhDAP0ndVNIjrbxurktzA%3D",
+                                    "VIDEO_SOURCE_ID": "Checkout Area",
+                                    "VIDEO_IS_LIVE": false,
+                                    "VIDEO_DECODE_GPU_INDEX": 0,
+                                    "SPACEANALYTICS_CONFIG": "{\"zones\":[{\"name\":\"queue\",\"polygon\":[[0.348,0.512],[0.764,0.687],[0.662,0.927],[0.221,0.605],[0.348,0.512]], \"events\": [{\"type\":\"zonecrossing\", \"config\":{\"trigger\": \"event\", \"threshold\":48.0, \"focus\": \"footprint\"}}, {\"type\":\"zonedwelltime\", \"config\":{\"trigger\": \"event\", \"threshold\":16.0, \"focus\": \"footprint\"}}]}]}"
+                                },
+                                "enabled": true
+                            },
+                            "storeEntrance": {
+                                "sharedNodeMap": {
+                                    "SpatialAnalysisGraph/detector": "sharedDetector",
+                                    "SpatialAnalysisGraph/facemask": "sharedFacemask"
+                                },
+                                "parameters": {
+                                    "VIDEO_URL": "https://teamfileshare.blob.core.windows.net/spatialanalysis-demo-data/line-crossing.mp4?sp=r&st=2021-04-26T22:53:17Z&se=2024-04-27T06:53:17Z&spr=https&sv=2020-02-10&sr=b&sig=sfy4Z%2BQPnMnL2wqA5F0Mw0VVGIoqHG1vtr0IhvhqCuI%3D",
+                                    "VIDEO_SOURCE_ID": "Store Entrance",
+                                    "VIDEO_IS_LIVE": false,
+                                    "VIDEO_DECODE_GPU_INDEX": 0,
+                                    "SPACEANALYTICS_CONFIG": "{\"lines\": [{\"name\": \"Line 1\",\"line\":{\"start\":{\"x\":0.839,\"y\":0.367},\"end\":{\"x\":0.925,\"y\":0.428}},\"events\": [{\"type\": \"linecrossing\",\"config\": {\"trigger\": \"event\",\"focus\": \"footprint\",\"threshold\": 16}}]}]}"
+                                },
+                                "enabled": true
+                            },
+                            "checkoutArea": {
+                                "sharedNodeMap": {
+                                    "SpatialAnalysisGraph/detector": "sharedDetector",
+                                    "SpatialAnalysisGraph/facemask": "sharedFacemask"
+                                },
+                                "parameters": {
+                                    "VIDEO_URL": "https://teamfileshare.blob.core.windows.net/spatialanalysis-demo-data/zone-checkout.mp4?sp=r&st=2021-04-25T20:23:57Z&se=2023-04-26T04:23:57Z&spr=https&sv=2020-02-10&sr=b&sig=gUrgXbsZVM6QRP%2B9DdbdFXKhDAP0ndVNIjrbxurktzA%3D",
+                                    "VIDEO_SOURCE_ID": "Checkout Area (Facemask Compliance)",
+                                    "VIDEO_IS_LIVE": false,
+                                    "VIDEO_DECODE_GPU_INDEX": 0,
+                                    "SPACEANALYTICS_CONFIG": "{\"zones\":[{\"name\":\"queue\",\"polygon\":[[0.348,0.512],[0.764,0.687],[0.662,0.927],[0.221,0.605],[0.348,0.512]], \"events\": [{\"type\":\"count\", \"config\":{\"trigger\": \"event\", \"threshold\":16.0, \"focus\": \"footprint\"}}]}]}"
+                                },
+                                "enabled": true
+                            },
+                            "Store": {
+                                "sharedNodeMap": {
+                                    "SpatialAnalysisGraph/detector": "sharedDetector",
+                                    "SpatialAnalysisGraph/facemask": "sharedFacemask"
+                                },
+                                "parameters": {
+                                    "VIDEO_URL": "https://teamfileshare.blob.core.windows.net/spatialanalysis-demo-data/zone-checkout.mp4?sp=r&st=2021-04-25T20:23:57Z&se=2023-04-26T04:23:57Z&spr=https&sv=2020-02-10&sr=b&sig=gUrgXbsZVM6QRP%2B9DdbdFXKhDAP0ndVNIjrbxurktzA%3D",
+                                    "VIDEO_SOURCE_ID": "Checkout Area (Social Distancing)",
+                                    "VIDEO_IS_LIVE": false,
+                                    "VIDEO_DECODE_GPU_INDEX": 0,
+                                    "SPACEANALYTICS_CONFIG": "{\"zones\":[{\"name\":\"queue\",\"polygon\":[[0.348,0.512],[0.764,0.687],[0.662,0.927],[0.221,0.605],[0.348,0.512]], \"events\": [{\"type\":\"persondistance\", \"config\":{\"trigger\": \"event\", \"threshold\":48.0, \"focus\": \"footprint\"}}]}]}"
+                                },
+                                "enabled": true
+                            }
+                        },
+                        "enabled": true
+                    }
+                }
+            }
+        }
+    }
+}

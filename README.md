@@ -29,19 +29,26 @@ For a tutorial on how to use this application see this [article](https://docs.mi
 
 ## Demo
 
-### Person Count Accelerator App
+### Spatial Analysis Accelerator App
 
-Use the web application in this project to integrate the output of the spatial analysis container and understand the count of people occupying a physical space. The application parses the AI Insight JSON output by the spatial analysis container and determine the “person count” and “latency”, then it updates a chart UI. To determine the latency, the app inspects the AI Insight timestamp which indicates when the AI Insight event has been generated on the edge device and calculates the latency.
+Use the web application in this project to integrate the output of the spatial analysis container and understand the count of people occupying a physical space. The application parses the AI Insight JSON output by the spatial analysis container and determine different counts based on configured operations and “latency”, then it updates a chart UI. To determine the latency, the app inspects the AI Insight timestamp which indicates when the AI Insight event has been generated on the edge device and calculates the latency.
 
 To run the demo, follow these steps:
 
-1. Clone the repository
-2. Open the Person Count AcceleratorApp forlder from the cloned repository folder in VScode
-3. Press ctrl+shift+b and select the "npm install" task to install dependencies
-4. Retrieve the EventHubConsumerGroup and IotHubConnectionString from your Azure IoT Hub resource on [Azure portal](https://portal.azure.com).
-5. Enter the values in the "EventHubConsumerGroup" and "IotHubConnectionString" fields at .vscode/launch.json
-6. Press [F5] to launch the app
-7. Navigate to localhost:3000 in your browser to see the app in action
+1. Setup the spatial analysis module using [guide](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/spatial-analysis-container?tabs=azure-stack-edge)
+2. Use [deployment manifest](./deployment.json) to run all scenarios with pre-configured videos and zones
+2. Clone the repository
+3. Open the SpatialAnalysisAcceleratorApp forlder from the cloned repository folder in VScode
+4. Press ctrl+shift+b and select the "npm install" task to install dependencies
+5. Retrieve the EventHubConsumerGroup and IotHubConnectionString from your Azure IoT Hub resource on [Azure portal](https://portal.azure.com).
+6. Enter the values in the "EventHubConsumerGroup" and "IotHubConnectionString" fields at .vscode/launch.json
+7. Press [F5] to launch the app
+8. Navigate to localhost:3000 in your browser to see the app in action
+
+## Docker Image
+1. Navigate to SpatialAnalysisAcceleratorApp folder (e.g. cd SpatialAnalysisAcceleratorApp) 
+2. docker build -t <your ACR name>/spatialanalysisacceleratorapp .
+3. docker push <your ACR name>/spatialanalysisacceleratorapp
 
 ## Resources
 
