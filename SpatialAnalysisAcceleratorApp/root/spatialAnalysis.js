@@ -158,7 +158,7 @@ class SourceData {
       }
     }
     else if (timeSeriesEvent.event.type == "personZoneDwellTimeEvent") {
-      return (timeSeriesEvent.event.properties.durationMs / 1000)
+      return (timeSeriesEvent.event.properties.dwellTime / 1000)
     }
     else if (timeSeriesEvent.event.type == "personDistanceEvent") {
       if (eventSubType == "violation") {
