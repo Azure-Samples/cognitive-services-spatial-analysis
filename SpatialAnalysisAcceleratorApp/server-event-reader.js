@@ -1,7 +1,7 @@
 // Cognitive Services for spatial analysis: Accelerator app for Person Counting. 
 
 /* eslint-disable no-undef */
-const { EventHubClient, EventPosition } = require('@azure/event-hubs');
+const { EventHubClient, EventPosition } = require('azure-event-hubs');
 
 class ServerEventReader {
   constructor(connectionString, consumerGroup) {
